@@ -33,4 +33,9 @@ Kickstarter::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+  # Capybara configuration compatible with version 1.x
+  #Capybara.configure do |config|
+  #  config.match = :prefer_exact
+  # config.ignore_hidden_elements = false
+  #end
 end
