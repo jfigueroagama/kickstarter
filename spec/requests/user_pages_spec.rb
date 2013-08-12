@@ -9,4 +9,13 @@ describe "User Pages" do
     
     it {should have_content('Sign up')}   
   end
+  
+  describe "Show page" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      visit user_path(user)
+    end
+    
+    it { should have_selector('h1', text: user.name)}
+  end
 end
