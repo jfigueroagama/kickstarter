@@ -60,7 +60,7 @@ describe "User Pages" do
     
     describe "with valid information" do
       before do
-        fill_in "Name",             with: "Old name"
+        fill_in "Name",             with: "New name"
         fill_in "Email",            with: "new@example.com"
         fill_in "Password",         with: user.password
         fill_in "Confirmation",     with: user.password
@@ -71,7 +71,7 @@ describe "User Pages" do
       #it { should have_selector('div.alert.alert-success') }
       it { should have_link('Sign out', href: signout_path) }
       # this reloads the user variable from the DB and checks for the new attributes
-      #specify { user.reload.name.should == "Old name" }
+      #specify { user.reload.name.should == "New name" }
       #specify { user.reload.email.should == "new@example.com" }
     end
     
