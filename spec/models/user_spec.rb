@@ -13,6 +13,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
+  it { should respond_to(:projects) }
   
   describe "when name is not present" do
     before { @user.name = " " }
@@ -108,6 +109,34 @@ describe User do
     
     # same as it but applies the test to the attribute instead of to the subject
     #its(:remember_token) { should_not be_blank }
+  end
+  
+  describe "project association" do
+    before do
+      @user = User.new(name: "Josue Figueroa", email: "josue@gmail.com.mx", password: "foobar", password_confirmation: "foobar")
+      @user.save
+    end
+    
+    let!(:older_project) do
+      FactoryGirl.create(:project, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_project) do
+      FactoryGirl.create(:project, user: @user, created_at: 1.hour.ago)
+    end
+    
+    it "should have the projects in the right order" do
+      #returns the array of projects associated to the user
+      @user.projects.should == [newer_project, older_project]
+    end
+    
+    it "should destroy associated projects" do
+      projects = @user.projects.dup
+      @user.destroy
+      projects.should be_empty
+      projects.each do |project|
+        Project.find_by_id(project.id).should be_nil
+      end
+    end
   end
 end
  

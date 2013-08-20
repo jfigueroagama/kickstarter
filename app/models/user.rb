@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
   has_secure_password
   
+  has_many :projects, dependent: :destroy
+  
   validates :name, presence: true
   validates :name, length: { maximum: 50 } 
   validates :email, presence: true
