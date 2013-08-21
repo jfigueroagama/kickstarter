@@ -1,4 +1,6 @@
 Kickstarter::Application.routes.draw do
+  get "projects/create"
+  get "projects/destroy"
   # get "users/new"
   # get "static_pages/home" 
   
@@ -6,6 +8,7 @@ Kickstarter::Application.routes.draw do
   
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :projects, only: [:create, :destroy]
   
   match '/signup', to: 'users#new', via: :get
   match '/signin', to: 'sessions#new', via: :get

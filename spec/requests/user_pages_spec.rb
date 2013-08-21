@@ -33,11 +33,19 @@ describe "User Pages" do
   
   describe "Show page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:p1) { FactoryGirl.create(:project, user: user, name: "Preject 1", description: "My project 1") }
+    let!(:p2) { FactoryGirl.create(:project, user: user, name: "Project 2", description: "My project 2") }
     before do
       visit user_path(user)
     end
     
     it { should have_selector('h4', text: user.name)}
+    
+    describe "projects" do
+      it { should have_content(p1.name) }
+      it { should have_content(p2.name) }
+      it { should have_content(user.projects.count) }
+    end
   end
   
   describe "Edit page" do

@@ -8,4 +8,13 @@
 			</h4>
 		</section>
 	</aside> <!-- Used for sidebars -->
+	<div class="span8">
+	    <% if @user.projects.any? %>
+	      <h3>Projects (<%= @user.projects.count %>)</h3>
+	      <ol class="projects">
+	        <%= render @projects %>
+	      </ol>
+	      <%= will_paginate @projects %>
+	    <% end %>
+	 </div>
 </div>
